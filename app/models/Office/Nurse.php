@@ -4,7 +4,7 @@ namespace System\MyHospital\models\Office;
 
 use System\MyHospital\models\General\Employee;
 
-class Nurse extends Employee
+final class Nurse extends Employee
 {
 
     private $desc;
