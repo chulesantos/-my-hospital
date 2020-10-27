@@ -1,10 +1,10 @@
 <?php
 
-namespace System\MyHospital\models;
-
-include 'app/config/autoload.php';
+namespace System\MyHospital\models\General;
 
 use System\MyHospital\helpers\CustomHelpers;
+
+include 'app/config/autoload.php';
 
 abstract class Person
 {
@@ -62,5 +62,13 @@ abstract class Person
 
         return $data_one->diff($data_two)->y;
 
+    }
+
+    public function checkCreate()
+    {
+        if (!IS_NULL($this->id))
+            return TRUE;
+
+        return FALSE;
     }
 }

@@ -3,7 +3,7 @@
 include 'app/config/autoload.php';
 
 use System\MyHospital\config\DataBase;
-use System\MyHospital\models\Employee;
+use System\MyHospital\models\Office\Nurse;
 
 echo PHP_EOL;
 
@@ -12,34 +12,31 @@ echo PHP_EOL;
 $initId = 1000;
 
 $pessoas = DataBase::arrPersons();
-$jobs = DataBase::arrJobs();
 
-$funcionarios = [];
+$enfermeiros = [];
 
 foreach ($pessoas as $key => $newPessoa) {
 
-    $getJob = NULL;
+    $tipo = $newPessoa['tipo'];
 
-    if (!IS_NULL($newPessoa['id_job']))
-        $getJob = $jobs[$newPessoa['id_job']]['desc'];
-
-    $funcionarios[$key] = new Employee(
+    $arrDados =
         [
             'id' => $key + $initId,
             'nome' => $newPessoa['nome'],
             'sobrenome' => $newPessoa['sobrenome'],
             'dt_nascimento' => $newPessoa['dt_nascimento'],
             'cpf' => $newPessoa['cpf']
+        ];
 
-        ],
-        $getJob);
+    if ($tipo == "Enfermeiro")
+        $enfermeiros[$key] = new Nurse($arrDados);
 
 }
 
-foreach ($funcionarios as $funcionario) {
+foreach ($enfermeiros as $enfermeiro) {
 
-    if ($funcionario->checkCreate())
-        var_dump($funcionario);
+    if ($enfermeiro->checkCreate())
+        print_r($enfermeiro);
 }
 
 
